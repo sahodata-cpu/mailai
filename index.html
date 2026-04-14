@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メール返信効率化アプリ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="header-title">
+                <i class="fas fa-envelope"></i>
+                メール返信効率化アプリ
+            </h1>
+            <p class="header-subtitle">定型文を簡単に管理・コピー</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- 検索・フィルター機能 -->
+            <section class="search-section">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="テンプレートを検索..." class="search-input">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="all">すべて</button>
+                    <button class="filter-btn" data-category="business">ビジネス</button>
+                    <button class="filter-btn" data-category="customer">顧客対応</button>
+                    <button class="filter-btn" data-category="internal">社内連絡</button>
+                    <button class="filter-btn" data-category="other">その他</button>
+                </div>
+            </section>
+
+            <!-- 新規登録ボタン -->
+            <section class="action-section">
+                <button id="addTemplateBtn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    新規テンプレート登録
+                </button>
+            </section>
+
+            <!-- テンプレート一覧 -->
+            <section class="templates-section">
+                <div id="templatesGrid" class="templates-grid">
+                    <!-- 初期テンプレートはJavaScriptで読み込まれます -->
+                </div>
+                <div id="loadingTemplates" class="loading-templates">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>テンプレートを読み込んでいます...</p>
+                </div>
+                <div id="noTemplates" class="no-templates" style="display: none;">
+                    <i class="fas fa-inbox"></i>
+                    <p>テンプレートが登録されていません</p>
+                    <p>「新規テンプレート登録」ボタンから追加してください</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- モーダル：テンプレート登録・編集 -->
+    <div id="templateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">新規テンプレート登録</h2>
+                <button id="closeModal" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="templateForm" class="template-form">
+                <div class="form-group">
+                    <label for="templateTitle">テンプレート名 <span class="required">*</span></label>
+                    <input type="text" id="templateTitle" required class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label for="templateCategory">カテゴリー <span class="required">*</span></label>
+                    <select id="templateCategory" required class="form-select">
+                        <option value="">選択してください</option>
+                        <option value="business">ビジネス</option>
+                        <option value="customer">顧客対応</option>
+                        <option value="internal">社内連絡</option>
+                        <option value="other">その他</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="templateSubject">件名（任意）</label>
+                    <input type="text" id="templateSubject" class="form-input" placeholder="メールの件名があれば入力">
+                </div>
+                
+                <div class="form-group">
+                    <label for="templateContent">本文 <span class="required">*</span></label>
+                    <textarea id="templateContent" required class="form-textarea" rows="10" placeholder="メールの本文を入力してください"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="templateTags">タグ（カンマ区切りで入力）</label>
+                    <input type="text" id="templateTags" class="form-input" placeholder="例：お礼, お詫び, 依頼">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">キャンセル</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        保存
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- トースト通知 -->
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
